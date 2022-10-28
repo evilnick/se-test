@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from PIL import Image
 import io
@@ -12,6 +13,10 @@ elements= ["f75ad846","47fc9ee4","98236657"]
 url ="https://github.com/users/evilnick/projects/1"
 margin=26
 
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
+
 
 def crop_centre(pil_img, crop_width, crop_height):
     img_width, img_height = pil_img.size
@@ -20,11 +25,9 @@ def crop_centre(pil_img, crop_width, crop_height):
                          (img_width + crop_width) // 2,
                          (img_height + crop_height) // 2))
 
-
-
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 dt = driver.get(url)
-driver.set_window_size(1180,900)
+driver.set_window_size(1180,640)
 element_images=[]
 for e in elements:
     image = driver.find_element(By.ID,e).screenshot_as_png 
