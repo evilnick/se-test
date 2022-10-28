@@ -1,3 +1,4 @@
+packaging
 selenium
 webdriver_manager
 pillow >= 4.
